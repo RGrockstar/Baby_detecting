@@ -12,7 +12,7 @@ canvas.center();
 video=createCapture(VIDEO);
 video.size(380, 380);
 video.hide();
-object_detecter=ml5.objectDetector('cocossd', modelLoaded);
+object_detector=ml5.objectDetector('cocossd', modelLoaded);
 document.getElementById("status").innerHTML="baby detecting";
 }
 function modelLoaded(){
@@ -20,12 +20,12 @@ function modelLoaded(){
  status=true;
 }
 function draw(){
-image(video, 0,0, 480, 380);
+image(video, 0,0, 380, 380);
 if (status != ""){
     r = random(255);
     g = random(255);
     b = random(255);
-    objectDetecter.detect(video, gotResults);
+    object_detector.detect(video, gotResults);
     for(i=0; i<objects.length; i++){
     document.getElementById("status").innerHTML="baby detected";
     fill(r,g,b);
@@ -34,7 +34,8 @@ if (status != ""){
     noFill();
     stroke(r,g,b);
     rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
-    if(objects[i].label ="person"){
+
+    if(objects[i].label == "person"){
     document.getElementById("nob.num").innerHTML= "baby_found";
     baby_fine.play();
     }
